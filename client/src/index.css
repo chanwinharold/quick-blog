@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+
+@theme inline {
+    /* ── Primaire : Encre (bleu-indigo profond) ── */
+    --color-primary:         #1E2D5A;
+    --color-primary-light:   #2E4480;
+    --color-primary-dark:    #111929;
+
+    /* ── Accent : Ambre doré ── */
+    --color-accent:          #F0A500;
+    --color-accent-light:    #F7C24E;
+    --color-accent-dark:     #C07D00;
+
+    /* ── Secondaire : Sauge (vert doux) ── */
+    --color-secondary:       #4A7C6F;
+    --color-secondary-light: #6BA394;
+    --color-secondary-dark:  #2F5248;
+
+    /* ── Neutres ── */
+    --color-bg:              #F8F6F1;   /* fond ivoire chaud */
+    --color-surface:         #FFFFFF;   /* cartes / panneaux */
+    --color-border:          #E2DDD6;   /* séparateurs subtils */
+
+    /* ── Texte ── */
+    --color-text:            #1A1A2E;   /* titres */
+    --color-text-muted:      #6B6B7B;   /* métadonnées, légendes */
+    --color-text-inverse:    #F8F6F1;   /* texte sur fond sombre */
+
+    /* ── États ── */
+    --color-success:         #2E7D5A;
+    --color-warning:         #E07B39;
+    --color-error:           #C0392B;
+    --color-info:            #2980B9;
+}
+
+
+:root {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+* {
+    font-family: "Outfit", sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
