@@ -4,7 +4,7 @@ import {Star} from "lucide-react"
 
 function Hero() {
     return (
-        <div className={`relative mx-8 sm:mx-16 xl:mx-24 py-32 grid gap-8 place-items-center`}>
+        <section className={`relative mx-8 sm:mx-16 xl:mx-24 py-32 grid gap-8 place-items-center`}>
             <div className={`flex items-center gap-2 bg-primary-light/10 border-primary-light/50 border w-fit rounded-full px-4 py-2 text-sm`}>
                 <p className={`text-primary-light text-shadow-primary-light text-shadow-sm`}>New: AI feature integrated</p>
                 <Star className={`w-4 rotate-45 fill-primary-light stroke-primary`} />
@@ -15,7 +15,7 @@ function Hero() {
                     <span className={`text-primary-light text-shadow-md text-shadow-primary-light font-medium`}> blogging</span>
                     <br/> platform.
                 </h1>
-                <p className={`text-center max-w-150`}>This is your space to think out loud, to share what matters,
+                <p className={`text-center text-text-muted max-w-150`}>This is your space to think out loud, to share what matters,
                     and to write without filters. Whether it's one word or a thousand,
                     your story starts right here.</p>
             </div>
@@ -32,7 +32,7 @@ function Hero() {
             </form>
 
             <img src={`${assets.bgGradient}`} alt="" className={`absolute opacity-50 -top-20 object-center object-cover -z-1`}/>
-        </div>
+        </section>
     );
 }
 
