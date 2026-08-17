@@ -5,7 +5,7 @@ import {BookCheck, HomeIcon, MessageCircleMore, SquarePlus} from "lucide-react";
 function Sidebar() {
     return (
         <div className={`max-w-60 flex-1`}>
-            <nav className={`h-screen shadow-xs shadow-neutral-400`}>
+            <nav className={`min-h-screen h-full shadow-xs shadow-neutral-400`}>
                 <NavLink to={`/admin`} end={true} className={({isActive}) => `sidebar-item ${isActive && `bg-primary-light/10 border-r-primary-light`}`}>
                     <HomeIcon />
                     <span>Dashboard</span>

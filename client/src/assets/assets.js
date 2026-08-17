@@ -256,3 +256,10 @@ export const blogComments = [
     }
 ]
 
+
+export const dashboardData = {
+    blogs: blogData.length,
+    comments: blogComments.length,
+    drafts: blogData.filter(blog => !blog.isPublished).length,
+    latestBlogs: blogData.slice(0, 5)
+}
