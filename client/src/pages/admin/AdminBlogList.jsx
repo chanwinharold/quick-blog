@@ -21,7 +21,7 @@ function AdminBlogList() {
     }, []);
 
     return (
-        <section className={`py-12 px-6 w-full`}>
+        <section className={`py-12 px-6 w-full flex-1`}>
             <div className={`mb-6`}>
                 <strong className={`font-semibold text-lg text-primary-dark`}>All Blogs</strong>
             </div>
