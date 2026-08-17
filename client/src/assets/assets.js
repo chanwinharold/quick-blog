@@ -92,3 +92,167 @@ export const blogCategories = [
     'Lifestyle',
     'Finance'
 ]
+
+export const blogComments = [
+    {
+        id: 1,
+        blog: blogData[0],
+        name: "Sarah Johnson",
+        content: "This is a great overview of React 19! I've been waiting for a comprehensive guide like this. The new features are truly game-changing.",
+        isApproved: true,
+        createdAt: "2026-01-16T08:20:00Z",
+        updatedAt: "2026-01-16T08:20:00Z",
+        __v: 0
+    },
+    {
+        id: 2,
+        blog: blogData[0],
+        name: "David Chen",
+        content: "Would love to see more examples of server components in action. Any chance of a follow-up article?",
+        isApproved: true,
+        createdAt: "2026-01-18T14:35:00Z",
+        updatedAt: "2026-01-18T14:35:00Z",
+        __v: 0
+    },
+    {
+        id: 3,
+        blog: blogData[0],
+        name: "Emily Rodriguez",
+        content: "The performance improvements alone make upgrading worthwhile. Thanks for breaking it down so clearly!",
+        isApproved: true,
+        createdAt: "2026-01-21T10:15:00Z",
+        updatedAt: "2026-01-21T10:15:00Z",
+        __v: 0
+    },
+    {
+        id: 4,
+        blog: blogData[1],
+        name: "Michael Thompson",
+        content: "As someone who just launched their first startup, this resonates so much. The 90-day timeline is ambitious but totally doable with focus.",
+        isApproved: true,
+        createdAt: "2026-02-11T09:45:00Z",
+        updatedAt: "2026-02-11T09:45:00Z",
+        __v: 0
+    },
+    {
+        id: 5,
+        blog: blogData[1],
+        name: "Jessica Park",
+        content: "The MVP approach saved us months of wasted effort. Validate early, iterate fast - can't emphasize this enough!",
+        isApproved: true,
+        createdAt: "2026-02-13T16:20:00Z",
+        updatedAt: "2026-02-13T16:20:00Z",
+        __v: 0
+    },
+    {
+        id: 6,
+        blog: blogData[1],
+        name: "Anonymous",
+        content: "This is spam content trying to promote unrelated products.",
+        isApproved: false,
+        createdAt: "2026-02-14T11:30:00Z",
+        updatedAt: "2026-02-14T11:30:00Z",
+        __v: 1
+    },
+    {
+        id: 7,
+        blog: blogData[2],
+        name: "Amanda Wilson",
+        content: "Exactly what I needed to read today. Work-life balance has been such a struggle lately. These tips are practical and actionable.",
+        isApproved: true,
+        createdAt: "2026-03-06T07:50:00Z",
+        updatedAt: "2026-03-06T07:50:00Z",
+        __v: 0
+    },
+    {
+        id: 8,
+        blog: blogData[2],
+        name: "Robert Martinez",
+        content: "The quote about lifestyle being a reflection of priorities really hit home. Time to reassess my choices!",
+        isApproved: true,
+        createdAt: "2026-03-08T13:25:00Z",
+        updatedAt: "2026-03-08T13:25:00Z",
+        __v: 0
+    },
+    {
+        id: 9,
+        blog: blogData[3],
+        name: "Lisa Anderson",
+        content: "Finally, a finance guide that doesn't make my head spin! The step-by-step approach is perfect for beginners.",
+        isApproved: true,
+        createdAt: "2026-04-02T10:40:00Z",
+        updatedAt: "2026-04-02T10:40:00Z",
+        __v: 0
+    },
+    {
+        id: 10,
+        blog: blogData[3],
+        name: "James Taylor",
+        content: "Building that emergency fund changed my life. Started small but it's given me so much peace of mind.",
+        isApproved: true,
+        createdAt: "2026-04-04T15:55:00Z",
+        updatedAt: "2026-04-04T15:55:00Z",
+        __v: 0
+    },
+    {
+        id: 11,
+        blog: blogData[3],
+        name: "Karen White",
+        content: "The investing advice is solid. Wish I had started earlier, but better late than never!",
+        isApproved: true,
+        createdAt: "2026-04-05T09:10:00Z",
+        updatedAt: "2026-04-05T09:10:00Z",
+        __v: 0
+    },
+    {
+        id: 12,
+        blog: blogData[4],
+        name: "Christopher Lee",
+        content: "AI tools have genuinely transformed my workflow. What used to take hours now takes minutes. The future is here!",
+        isApproved: true,
+        createdAt: "2026-05-13T11:30:00Z",
+        updatedAt: "2026-05-13T11:30:00Z",
+        __v: 0
+    },
+    {
+        id: 13,
+        blog: blogData[4],
+        name: "Nicole Garcia",
+        content: "Great article! Would love to hear more about specific AI tools you recommend for web developers.",
+        isApproved: true,
+        createdAt: "2026-05-16T14:45:00Z",
+        updatedAt: "2026-05-16T14:45:00Z",
+        __v: 0
+    },
+    {
+        id: 14,
+        blog: blogData[4],
+        name: "Daniel Kim",
+        content: "The automated code generation examples are impressive, but I'm curious about the learning curve. How long before developers can effectively use these tools?",
+        isApproved: true,
+        createdAt: "2026-05-17T08:20:00Z",
+        updatedAt: "2026-05-17T08:20:00Z",
+        __v: 0
+    },
+    {
+        id: 15,
+        blog: blogData[5],
+        name: "Rachel Brown",
+        content: "This comes at the perfect time! We're at that inflection point right now. The scaling strategies are super helpful.",
+        isApproved: true,
+        createdAt: "2026-06-09T10:30:00Z",
+        updatedAt: "2026-06-09T10:30:00Z",
+        __v: 0
+    },
+    {
+        id: 16,
+        blog: blogData[5],
+        name: "Test User",
+        content: "Testing comment moderation system.",
+        isApproved: false,
+        createdAt: "2026-06-10T12:00:00Z",
+        updatedAt: "2026-06-10T15:30:00Z",
+        __v: 2
+    }
+]
+
