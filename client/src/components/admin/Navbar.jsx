@@ -5,7 +5,9 @@ import {useNavigate} from "react-router";
 function Navbar() {
     const navigate = useNavigate();
 
-    const handleLogout = () => {}
+    const handleLogout = () => {
+        navigate(`/`)
+    }
 
     return (
         <header className={`flex justify-between items-center py-5 px-8 shadow-xs shadow-neutral-200`}>

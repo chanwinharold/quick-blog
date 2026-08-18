@@ -8,6 +8,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import AdminAddBlog from "./pages/admin/AdminAddBlog.jsx";
 import AdminBlogList from "./pages/admin/AdminBlogList.jsx";
 import AdminComment from "./pages/admin/AdminComment.jsx";
+import "quill/dist/quill.snow.css";
+
 
 const AUTH = true
 const router = createBrowserRouter([

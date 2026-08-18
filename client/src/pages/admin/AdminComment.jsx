@@ -33,7 +33,7 @@ function AdminComment() {
 
     return (
         <section className={`py-12 px-6 w-full flex-1`}>
-            <div className={`mb-6 flex justify-between`}>
+            <div className={`mb-6 max-w-4xl flex justify-between`}>
                 <strong className={`font-semibold text-lg text-primary-dark`}>Comments</strong>
                 {Filter==="Not Approved" ?
                     <button onClick={handleFilter} type={`button`} className={`cursor-pointer flex items-center gap-2 bg-primary-light/25 border-primary-light/50 border w-fit rounded-full px-5 py-1 text-sm`}>
