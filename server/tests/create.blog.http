@@ -1,0 +1,80 @@
+@auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYW53aW5oYXJvbGRAZ21haWwuY29tIiwiaWF0IjoxNzg3NDM1NjI5fQ.f9U0Da9-02-jK5nUuPddcCIrM6jUcKNk6jkZvSx8clo
+
+### POST request to add a new blog
+POST {{apiURL}}/blog/add
+Authorization: {{auth_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="blog"
+Content-Type: application/json
+
+{
+  "title": "Mon premier blog",
+  "subTitle": "Un sous-titre optionnel",
+  "description": "Ceci est une description de test pour le blog.",
+  "category": "Technologie",
+  "isPublished": true
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Type: image/png
+
+< ./fixtures/test.png
+--WebAppBoundary--
+
+> {%
+client.test("Blog created successfully", function () {
+    client.assert(response.status === 201, "Expected 201 but got " + response.status);
+    client.assert(response.body.success === true, "Expected success to be true");
+});
+%}
+
+### POST request without auth token -> 401
+POST {{apiURL}}/blog/add
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="blog"
+Content-Type: application/json
+
+{
+  "title": "Sans token",
+  "description": "Test sans authorization.",
+  "category": "Test"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Type: image/png
+
+< ./fixtures/test.png
+--WebAppBoundary--
+
+> {%
+client.test("Unauthorized without token", function () {
+    client.assert(response.status === 401, "Expected 401 but got " + response.status);
+});
+%}
+
+### POST request missing required fields -> 400
+POST {{apiURL}}/blog/add
+Authorization: {{auth_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="blog"
+Content-Type: application/json
+
+{
+  "title": "Blog incomplet",
+  "description": "Pas de category ni d'image."
+}
+--WebAppBoundary--
+
+> {%
+client.test("Missing fields rejected", function () {
+    client.assert(response.status === 400, "Expected 400 but got " + response.status);
+});
+%}
+
+###
