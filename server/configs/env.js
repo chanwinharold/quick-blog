@@ -1,4 +1,7 @@
 require("dotenv").config({override: true});
 
-exports.PORT = process.env.PORT
-exports.MONGODB_URI = process.env.MONGODB_URI
+exports.PORT = process.env.PORT;
+exports.MONGODB_URI = process.env.MONGODB_URI;
+exports.ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+exports.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+exports.SECRET_KEY = process.env.JWT_SECRET_KEY;
