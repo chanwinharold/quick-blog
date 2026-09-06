@@ -1,4 +1,4 @@
-@auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYW53aW5oYXJvbGRAZ21haWwuY29tIiwiaWF0IjoxNzg3NDM1NjI5fQ.f9U0Da9-02-jK5nUuPddcCIrM6jUcKNk6jkZvSx8clo
+@auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYW53aW5oYXJvbGRAZ21haWwuY29tIiwiaWF0IjoxNzg4NjYwNDQ3fQ.WhY94kL-Q2A3fcxZrJVa4isrmOxb0hj7MEPN3lsz36g
 
 ### POST request to add a new blog
 POST {{apiURL}}/blog/add
