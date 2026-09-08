@@ -1,0 +1,4 @@
+### GET request to retrieve one blog
+GET {{apiURL}}/blog/6a9f4ee3911046f389d84937
+
+###

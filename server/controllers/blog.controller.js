@@ -45,7 +45,7 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getOneBlog = async (req, res) => {
     try {
-        const { blogId } = req.parse
+        const { blogId } = req.params
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
@@ -59,8 +59,8 @@ exports.getOneBlog = async (req, res) => {
 
 exports.deleteBlog  = async (req, res) => {
     try {
-        const { id } = req.body
-        await Blog.findByIdAndDelete(id);
+        const { _id } = req.body
+        await Blog.findByIdAndDelete(_id);
 
         return res.status(200).json({success: true, message: "Blog deleted successfully"});
     } catch (e) {
@@ -70,8 +70,10 @@ exports.deleteBlog  = async (req, res) => {
 
 exports.togglePublish = async (req, res) => {
     try {
-        const { id } = req.body
-        const blog = await Blog.findById(id);
+        const { _id } = req.body
+        const blog = await Blog.findById(_id);
+        console.log(_id)
+        console.log(blog)
         blog.isPublished = !blog.isPublished;
         await blog.save();
 

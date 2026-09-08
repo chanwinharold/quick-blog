@@ -10,7 +10,7 @@ Content-Disposition: form-data; name="blog"
 Content-Type: application/json
 
 {
-  "title": "Mon premier blog",
+  "title": "Mon quinzième blog",
   "subTitle": "Un sous-titre optionnel",
   "description": "Ceci est une description de test pour le blog.",
   "category": "Technologie",
