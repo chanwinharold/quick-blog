@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./configs/database");
 const adminRouter = require("./routes/admin.route");
 const blogRouter = require("./routes/blog.route");
+const commentRouter = require("./routes/comment.route");
 
 
 // Database connection
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "../client/public")));
 // App routes
 app.use(`/api/blog`, blogRouter)
 app.use(`/api/admin`, adminRouter)
+app.use(`/api/comments`, commentRouter)
 app.use((req, res) => {
     res.status(200).send(
         `<h1>Application is running...</h1>`
