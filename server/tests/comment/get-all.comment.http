@@ -1,0 +1,12 @@
+### POST request to display approved comments for a specific blog
+
+POST {{apiURL}}/comments/all
+Authorization: {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "blogId": "6a9f4ee3911046f389d84937"
+}
+
+###

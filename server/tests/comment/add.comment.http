@@ -1,0 +1,14 @@
+@auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYW53aW5oYXJvbGRAZ21haWwuY29tIiwiaWF0IjoxNzg4NjYwNDQ3fQ.WhY94kL-Q2A3fcxZrJVa4isrmOxb0hj7MEPN3lsz36g
+
+### POST request to add a new comment
+POST {{apiURL}}/comments/add
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+    "blog": "6a9f4ee3911046f389d84937",
+    "name": "Amanda Wilson",
+    "content": "Exactly what I needed to read today. Work-life balance has been such a struggle lately. These tips are practical and actionable."
+}
+
+###

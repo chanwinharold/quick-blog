@@ -1,0 +1,12 @@
+@auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYW53aW5oYXJvbGRAZ21haWwuY29tIiwiaWF0IjoxNzg4NjYwNDQ3fQ.WhY94kL-Q2A3fcxZrJVa4isrmOxb0hj7MEPN3lsz36g
+
+### DELETE request to delete a blog
+DELETE {{apiURL}}/blog/delete
+Authorization: {{auth_token}}
+Content-Type: application/json
+
+{
+    "id": "6a9f4f3e911046f389d84942"
+}
+
+###
