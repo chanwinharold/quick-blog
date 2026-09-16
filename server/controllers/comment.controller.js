@@ -6,7 +6,7 @@ exports.addComment = async (req, res) => {
         const {blog, name, content} = req.body;
         await Comment.create({blog, name, content});
 
-        return res.json({success: true, message: "Comment added successfully"})
+        return res.json({success: true, message: "Comment added for review"})
     } catch (e) {
         return res.json({success: false, message: e.message})
     }

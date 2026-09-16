@@ -1,10 +1,20 @@
-import {blogCategories, blogData} from "../assets/assets.js";
+import {blogCategories} from "../assets/assets.js";
 import {useState} from "react";
 import BlogCard from "./BlogCard.jsx";
+import {useAppContext} from "../context/AppContext.jsx";
 
 
 function BlogList() {
     const [menu, setMenu] = useState("All")
+    const {blogs, inputs} = useAppContext();
+
+    const filteredBlogs = () => {
+        if (inputs === "") return blogs
+        return blogs.filter(item => (
+            item.title.toLowerCase().includes(inputs.toLowerCase()) ||
+                item.category.toLowerCase().includes(inputs.toLowerCase())
+        ))
+    }
 
     return (
         <div className={`mx-8 sm:mx-16 xl:mx-24 mb-20`}>
@@ -26,13 +36,13 @@ function BlogList() {
             <section className={`xl:grid xl:grid-cols-4 flex flex-wrap max-md:justify-center gap-6`}>
                 {/*  ----- blog cards -----  */}
                 {
-                    blogData.filter(item =>
+                    filteredBlogs().filter(item =>
                         menu === 'All'
                             ? true
                             : item.category === menu
                     ).map(item => (
                         <BlogCard
-                            key={item.id}
+                            key={item._id}
                             blog={item}
                         />
                     ))

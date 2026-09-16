@@ -52,7 +52,7 @@ exports.getOneBlog = async (req, res) => {
         if (!blog) {
             return res.json({success: false, message: "Blog not found"});
         }
-        return res.json({success: true, data: blog});
+        return res.json({success: true, blog});
     } catch (e) {
         res.json({success: false, message: e.message});
     }
