@@ -7,7 +7,7 @@ function BlogCard({blog}) {
 
     return (
         <article onClick={() => navigate(`/blog/${_id}`)} className={`grid cursor-pointer hover:scale-102 duration-200 place-content-start max-w-72 rounded-lg overflow-hidden bg-surface shadow-md shadow-primary-dark/50`}>
-            <img src={`${image}`} alt="" className={`object-cover object-center`}/>
+            <img src={`${image}`} alt="" className={`max-h-45 w-full object-cover object-center`}/>
             <div className={`p-6 grid gap-2`}>
                 <span className={`px-4 py-1 w-fit text-sm font-medium bg-primary/50 rounded-full`}>{category}</span>
                 <strong className={`text-primary-dark`}>{title}</strong>

@@ -16,7 +16,7 @@ function AdminAddBlog() {
         isPublished: false
     })
     const [isLoading, setIsLoading] = useState(false);
-    const {axios, token} = useAppContext();
+    const {axios} = useAppContext();
     const editorRef = useRef(null);
     const quillRef = useRef(null);
 
@@ -32,12 +32,35 @@ function AdminAddBlog() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         try {
-            const {data} = axios.post(`/api/admin/add`, inputs)
-            if (data.success) return toast.success(data.message)
-            else return toast.error(data.message)
+            const {image, ...blog} = inputs
+            blog.description = quillRef.current.root.innerHTML;
+
+            const formData = new FormData();
+            formData.append('blog', JSON.stringify(blog));
+            formData.append('image', image)
+
+            const {data} = await axios.post(`/api/blog/add`, formData)
+            if (data.success) {
+                toast.success(data.message)
+                setInputs({
+                    image: false,
+                    title: "",
+                    subTitle: "",
+                    description: "",
+                    category: "Startup",
+                    isPublished: false
+                })
+                quillRef.current.root.innerHTML = "";
+            }
+            else {
+                return toast.error(data.message)
+            }
         } catch (e) {
             return toast.error(e.message)
+        } finally {
+            setIsLoading(false)
         }
     }
     const generateWithAI = () => {

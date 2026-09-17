@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, "../../client/public/images/blogs"))
     },
     filename: function (req, file, cb) {
-        const uniqueName = `${Date.now()}-${file.originalname}`;
+        const uniqueName = `${Date.now()}-${String(file.originalname).replace(" ", "_").toLowerCase()}`;
         cb(null, uniqueName)
     }
 })
