@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(`${MONGODB_URI}/quickblog`);
+        await mongoose.connect(MONGODB_URI);
         return `✅ Database connected`
     } catch (e) {
         return `❌ Database connection error : ${e.message}`

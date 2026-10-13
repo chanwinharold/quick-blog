@@ -1,29 +1,14 @@
 import {BookCheck, GalleryHorizontalEnd, MessagesSquare, NotebookPen} from "lucide-react";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import BlogTableItem from "../../components/admin/BlogTableItem.jsx";
-import {dashboardData} from "../../assets/assets.js";
+import {useAppContext} from "../../context/AppContext.jsx";
 
 
 function AdminDashboard() {
-    const [DashboardData, setDashboardData] = useState({
-        blogs: 0,
-        comments: 0,
-        drafts: 0,
-        latestBlogs: []
-    })
-
-    const handleFetch = async () => {
-        try {
-            return dashboardData
-        } catch (e) {return e}
-    }
+    const {DashboardData, fetchAdminDashboard} = useAppContext();
 
     useEffect(() => {
-        handleFetch().then(res => {
-            setDashboardData(res)
-        }).catch(error => {
-            console.error(`Internal server error : ${error}`)
-        })
+        fetchAdminDashboard();
     }, []);
 
     return (
@@ -46,7 +31,7 @@ function AdminDashboard() {
                 <article className={`cursor-pointer hover:scale-105 duration-300 hover:shadow-sm bg-surface flex items-center gap-2 p-4 w-56 rounded-md`}>
                     <div className={`bg-primary-light/10 rounded-lg w-12 h-12 grid place-content-center`}><NotebookPen className={`stroke-primary-light`}/></div>
                     <div className={`grid`}>
-                        <span className={`text-xl font-semibold`}>{DashboardData.drafts}</span>
+                        <span className={`text-xl font-semibold`}>{DashboardData.draftBlogs}</span>
                         <span className={`text-sm text-text-muted`}>Drafts</span>
                     </div>
                 </article>
@@ -69,8 +54,8 @@ function AdminDashboard() {
                         </thead>
                         <tbody>
                         {
-                            DashboardData.latestBlogs.map((item, i) => (
-                                <BlogTableItem key={item.id} blog={item} index={i+1} />
+                            DashboardData.recentsBlogs && DashboardData.recentsBlogs.map((item, i) => (
+                                <BlogTableItem key={item._id} blog={item} index={i+1} />
                             ))
                         }
                         </tbody>

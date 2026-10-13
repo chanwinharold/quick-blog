@@ -1,8 +1,11 @@
 import {assets} from "../assets/assets.js";
 import {Star} from "lucide-react"
+import {useAppContext} from "../context/AppContext.jsx";
 
 
 function Hero() {
+    const {inputs, setInputs} = useAppContext();
+
     return (
         <section className={`relative mx-8 sm:mx-16 xl:mx-24 py-32 grid gap-8 place-items-center`}>
             <div className={`flex items-center gap-2 bg-primary-light/10 border-primary-light/50 border w-fit rounded-full px-4 py-2 text-sm`}>
@@ -19,9 +22,11 @@ function Hero() {
                     and to write without filters. Whether it's one word or a thousand,
                     your story starts right here.</p>
             </div>
-            <form className={`bg-surface p-2 rounded-md flex max-w-100 h-14 w-full`}>
+            <form onSubmit={(e) => e.preventDefault()} className={`bg-surface p-2 rounded-md flex max-w-100 h-14 w-full`}>
                 <input
                     className={`outline-none w-full pl-2`}
+                    value={inputs}
+                    onChange={(e) => setInputs(e.target.value)}
                     type="text"
                     name="search-for-blog"
                     id="search"
@@ -30,6 +35,10 @@ function Hero() {
                 />
                 <button type="submit" className={`px-8 border-2 border-transparent hover:bg-primary-light/95 hover:border-primary-light bg-primary transition-colors duration-300 rounded-md text-text-inverse font-medium cursor-pointer`}>Search</button>
             </form>
+
+            <div className={`w-full inline-flex justify-center`}>{
+                inputs.length > 0 && <button type="button" onClick={() => setInputs("")} className={`h-8 text-2xs m-auto px-12 border border-black hover:bg-neutral-900 bg-neutral-50 transition-colors duration-300 rounded-md hover:text-white text-text-muted font-medium cursor-pointer`}>Clear search</button>
+            }</div>
 
             <img src={`${assets.bgGradient}`} alt="" className={`absolute opacity-50 -top-20 object-center object-cover -z-1`}/>
         </section>

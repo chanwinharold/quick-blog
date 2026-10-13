@@ -1,11 +1,10 @@
 const express = require("express");
-const auth = require("../middlewares/auth")
 const {addComment, getBlogComments} = require("../controllers/comment.controller")
 const router = express.Router();
 
 
-router.post(`/add`, auth, addComment)
-router.post(`/all`, auth, getBlogComments)
+router.post(`/add`, addComment)
+router.post(`/all`, getBlogComments)
 
 
 module.exports = router;

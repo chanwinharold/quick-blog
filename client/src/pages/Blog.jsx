@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {assets, blogComments, blogData} from "../assets/assets.js";
+import {assets} from "../assets/assets.js";
 import {useParams} from "react-router";
 import Moment from "moment";
 import {PacmanLoader} from "react-spinners"
@@ -7,10 +7,13 @@ import {User} from "lucide-react";
 import {Facebook} from "../assets/icons/Facebook.jsx";
 import {Twitter} from "../assets/icons/Twitter.jsx";
 import {Google} from "../assets/icons/Google.jsx";
+import {useAppContext} from "../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 
 function Blog() {
     const {id} = useParams();
+    const {axios} = useAppContext();
     const [Data, setData] = useState(null);
     const [Comment, setComment] = useState([]);
     const [inputs, setInputs] = useState({
@@ -18,18 +21,36 @@ function Blog() {
         content: ""
     });
 
-    const handleFetch = async () => {
+    const handleFetchBlog = async () => {
         try {
-            return blogData.find(item => item.id === parseInt(id))
+            const {data} = await axios.get(`/api/blog/${id}`);
+            if (data.success) { return data.blog }
+            return data.message
         } catch (e) { return e }
     }
-    const handleComment = async () => {
+    const handleGetComments = async () => {
         try {
-            return blogComments.filter(item => item.blog.id === parseInt(id))
+            const {data} = await axios.post(`/api/comments/all`, { blogId: id })
+            if (data.success) { return data.comments }
+            return data.message
         } catch (e) { return e }
     }
-    const handleSubmitComment = (e) => {
+    const handleSubmitComment = async (e) => {
         e.preventDefault();
+        try {
+            const {data} = await axios.post(`/api/comments/add`, {blog: id, ...inputs})
+            if (data.success) {
+                setInputs({
+                    name: "",
+                    content: ""
+                })
+                return toast.success(data.message)
+            } else {
+                return toast.error(e.message)
+            }
+        } catch (e) {
+            return toast.error(e.message)
+        }
     }
     const handleChange = (e) => {
         const name = e.target.name;
@@ -40,16 +61,16 @@ function Blog() {
 
 
     useEffect(() => {
-        handleFetch().then(res => {
+        handleFetchBlog().then(res => {
             if (res) setData(res)
         }).catch(err => {
-            console.error(`Internal server error : ${err}`)
+            toast.error(err.message)
         })
 
-        handleComment().then(res => {
+        handleGetComments().then(res => {
             if (res.length) setComment(res)
         }).catch(err => {
-            console.error(`Internal server error : ${err}`)
+            toast.error(err.message)
         })
     }, []);
 
@@ -70,7 +91,7 @@ function Blog() {
             </main>
 
             <section className={`max-w-200 m-auto`}>
-                <img src={`${assets.bgCat}`} alt="" className={`rounded-lg mb-8`} />
+                <img src={`${Data.image}`} alt="" className={`rounded-lg mb-8 w-full`} />
                 <div className={`prose`} dangerouslySetInnerHTML={{__html: Data.description}}></div>
 
                 {/*  Comments section  */}
@@ -80,7 +101,7 @@ function Blog() {
                     <div className={`grid gap-3`}>
                         {
                             Comment.map(item => (
-                                <article key={item.id} className={`max-w-150 bg-surface p-6 rounded-lg`}>
+                                <article key={item._id} className={`max-w-150 bg-surface p-6 rounded-lg`}>
                                     <div className={`flex justify-between gap-12`}>
                                         <div className={`flex gap-3`}>
                                             <User className={`min-w-fit border-2 rounded-full`} />

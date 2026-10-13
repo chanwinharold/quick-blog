@@ -6,7 +6,7 @@ Authorization: {{auth_token}}
 Content-Type: application/json
 
 {
-    "blog": "6a9f4ee3911046f389d84937",
+    "blog": "6a9f4ed0911046f389d84935",
     "name": "Amanda Wilson",
     "content": "Exactly what I needed to read today. Work-life balance has been such a struggle lately. These tips are practical and actionable."
 }

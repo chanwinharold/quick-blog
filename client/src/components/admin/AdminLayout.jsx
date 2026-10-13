@@ -1,18 +1,11 @@
-import {Outlet} from "react-router";
-import Navbar from "./Navbar.jsx";
-import Sidebar from "./Sidebar.jsx";
+import {useAppContext} from "../../context/AppContext.jsx";
+import Login from "../../pages/admin/Login.jsx";
+import Admin from "./Admin.jsx";
 
 
 function AdminLayout() {
-    return (
-        <>
-            <Navbar />
-            <div className={`flex gap-4`}>
-                <Sidebar />
-                <Outlet />
-            </div>
-        </>
-    );
+    const {token} = useAppContext();
+    return token ? <Admin /> : <Login />
 }
 
 export default AdminLayout;

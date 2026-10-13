@@ -1,23 +1,13 @@
 import BlogTableItem from "../../components/admin/BlogTableItem.jsx";
-import {useEffect, useState} from "react";
-import {blogData} from "../../assets/assets.js";
+import {useEffect} from "react";
+import {useAppContext} from "../../context/AppContext.jsx";
 
 
 function AdminBlogList() {
-    const [Data, setData] = useState([])
-
-    const handleFetch = async () => {
-        try {
-            return blogData
-        } catch (e) {return e}
-    }
+    const {blogs, fetchAdminBlog} = useAppContext();
 
     useEffect(() => {
-        handleFetch().then(res => {
-            setData(res)
-        }).catch(error => {
-            console.error(`Internal server error : ${error}`)
-        })
+        fetchAdminBlog();
     }, []);
 
     return (
@@ -38,8 +28,8 @@ function AdminBlogList() {
                     </thead>
                     <tbody className={``}>
                     {
-                        Data.map((item, i) => (
-                            <BlogTableItem key={item.id} blog={item} index={i+1} />
+                        blogs && blogs.map((item, i) => (
+                            <BlogTableItem key={item._id} blog={item} index={i+1} />
                         ))
                     }
                     </tbody>

@@ -1,14 +1,31 @@
 import {useState} from "react";
+import {useAppContext} from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 
 function Login() {
+    const {navigate, axios, setToken} = useAppContext();
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
     })
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const {data} = await axios.post(`/api/admin/login`, inputs)
+            if (data.success) {
+                setToken(data.token);
+                localStorage.setItem("token", data.token);
+                axios.defaults.headers.common["Authorization"] = data.token;
+                toast.success(`Admin connected`);
+            } else {
+                toast.error(data.message)
+            }
+        } catch (err) {
+            toast.error(err.message)
+        }
     }
     const handleChange = (e) => {
         const name = e.target.name;

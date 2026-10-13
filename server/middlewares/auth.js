@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
         jwt.verify(token, SECRET_KEY);
         next();
     } catch (e) {
-        return res.status(401).json({success: false, message: "Invalid Token"})
+        return res.json({success: false, message: "Invalid Token"})
     }
 }
 

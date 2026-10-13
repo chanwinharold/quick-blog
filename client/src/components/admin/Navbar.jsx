@@ -1,12 +1,18 @@
 import {assets} from "../../assets/assets.js";
 import {useNavigate} from "react-router";
+import {useAppContext} from "../../context/AppContext.jsx";
 
 
 function Navbar() {
-    const navigate = useNavigate();
+    const {axios, setToken, navigate} = useAppContext();
 
     const handleLogout = () => {
-        navigate(`/`)
+        const storedToken = localStorage.getItem("token");
+        if (!storedToken) return;
+        setToken(null);
+        localStorage.removeItem("token");
+        axios.defaults.headers.common["Authorization"] = null;
+        navigate(`/`);
     }
 
     return (

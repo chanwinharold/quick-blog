@@ -2,17 +2,21 @@ import { CloudUpload } from 'lucide-react';
 import {useEffect, useRef, useState} from "react";
 import {blogCategories, toolbarOptions} from "../../assets/assets.js";
 import Quill from "quill";
+import {useAppContext} from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 
 function AdminAddBlog() {
     const [inputs, setInputs] = useState({
         image: false,
         title: "",
-        subtitle: "",
+        subTitle: "",
         description: "",
         category: "Startup",
         isPublished: false
     })
+    const [isLoading, setIsLoading] = useState(false);
+    const {axios} = useAppContext();
     const editorRef = useRef(null);
     const quillRef = useRef(null);
 
@@ -26,8 +30,38 @@ function AdminAddBlog() {
         setInputs(prevState => ({...prevState, [name]: value}));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
+        try {
+            const {image, ...blog} = inputs
+            blog.description = quillRef.current.root.innerHTML;
+
+            const formData = new FormData();
+            formData.append('blog', JSON.stringify(blog));
+            formData.append('image', image)
+
+            const {data} = await axios.post(`/api/blog/add`, formData)
+            if (data.success) {
+                toast.success(data.message)
+                setInputs({
+                    image: false,
+                    title: "",
+                    subTitle: "",
+                    description: "",
+                    category: "Startup",
+                    isPublished: false
+                })
+                quillRef.current.root.innerHTML = "";
+            }
+            else {
+                return toast.error(data.message)
+            }
+        } catch (e) {
+            return toast.error(e.message)
+        } finally {
+            setIsLoading(false)
+        }
     }
     const generateWithAI = () => {
         console.log(`Pending...`)
@@ -68,9 +102,9 @@ function AdminAddBlog() {
                 </label>
 
                 {/* Subtitle entry */}
-                <label htmlFor={`subtitle`} className={`font-semibold text-text-muted grid gap-2`}>
+                <label htmlFor={`subTitle`} className={`font-semibold text-text-muted grid gap-2`}>
                     <span className={`text-text-muted`}>Sub title</span>
-                    <input value={inputs.subtitle} onChange={handleChange} className={`font-light h-10 border border-border outline-none px-4 rounded-md min-w-sm`} type="text" name="subtitle" id="subtitle" placeholder={`Type here`} required />
+                    <input value={inputs.subTitle} onChange={handleChange} className={`font-light h-10 border border-border outline-none px-4 rounded-md min-w-sm`} type="text" name="subTitle" id="subTitle" placeholder={`Type here`} required />
                 </label>
 
                 {/* Blog description */}
@@ -104,9 +138,8 @@ function AdminAddBlog() {
                     <input checked={inputs.isPublished} onChange={handleChange} type="checkbox" name="isPublished" id="isPublished"/>
                 </label>
 
-                <button className={`justify-self-end my-12 btn-category w-fit rounded-sm px-4 py-2 cursor-pointer`} type="submit">Submit</button>
+                <button disabled={isLoading} className={`justify-self-end my-12 btn-category disabled:opacity-10 disabled:cursor-default w-fit rounded-sm px-4 py-2 cursor-pointer`} type="submit">Submit</button>
             </div>
-
         </form>
     );
 }

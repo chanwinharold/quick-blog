@@ -7,7 +7,7 @@ router.post('/login', login);
 router.get('/dashboard', auth, getDashboard);
 router.get('/blogs', auth, getAllAdminBlog);
 router.get('/comments', auth, getAdminBlogComments);
-router.delete('/comments', auth, deleteCommentById);
+router.delete('/comments/:id', auth, deleteCommentById);
 router.put('/comments', auth, approveCommentById);
 
 module.exports = router;

@@ -1,17 +1,39 @@
 import {useEffect, useState} from "react";
-import {blogComments} from "../../assets/assets.js";
 import Moment from "moment";
 import {CheckCircle, Trash2} from "lucide-react";
+import {useAppContext} from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 
 function AdminComment() {
-    const [Comments, setComments] = useState([]);
-    const [Filter, setFilter] = useState("Not Approved")
+    const [Filter, setFilter] = useState("Not Approved");
+    const {axios, Comments, setComments, fetchComments} = useAppContext();
 
-    const handleFetchComment = async () => {
+    const approveComment = async (id) => {
         try {
-            return blogComments
-        } catch (e) {return e}
+            const {data} = await axios.put(`/api/admin/comments`, {id})
+            if (data.success) {
+                const res = await fetchComments();
+                setComments(res);
+                return toast.success(data.message)
+            } else return toast.error(data.message);
+        } catch (err) {
+            return toast.error(err.message);
+        }
+    }
+    const deleteComment = async (id) => {
+        try {
+            const confirm = window.confirm(`Are you sure you want to delete this comment ?`);
+            if (!confirm) return
+            const {data} = await axios.delete(`/api/admin/comments/${id}`)
+            if (data.success) {
+                const res = await fetchComments();
+                setComments(res);
+                return toast.success(data.message);
+            } else return toast.error(data.message);
+        } catch (err) {
+            return toast.error(err.message);
+        }
     }
     const handleFilter = () => {
         setFilter(prevState => {
@@ -23,10 +45,10 @@ function AdminComment() {
     }
 
     useEffect(() => {
-        handleFetchComment().then(res => {
+        fetchComments().then(res => {
             setComments(res)
         }).catch(err => {
-            console.error(`Internal server error : ${err}`)
+            toast.error(err.message);
         })
     }, []);
 
@@ -48,7 +70,7 @@ function AdminComment() {
                 <table className={`w-full bg-surface rounded-lg text-sm shadow`}>
                     <thead>
                     <tr>
-                        <th scope={`col`} className={`px-4 py-4 text-start uppercase font-semibold`}>Blog Title & Comment</th>
+                        <th scope={`col`} className={`px-4 py-4 text-start uppercase font-semibold`}>Blog Title & Comment {Filter==="Approved" ? <span className={`text-success`}>Approved</span> : <span className={`text-error`}>Not Approved</span>}</th>
                         <th scope={`col`} className={`px-4 py-4 text-start uppercase font-semibold`}>Date</th>
                         <th scope={`col`} className={`px-4 py-4 text-start uppercase font-semibold`}>Actions</th>
                     </tr>
@@ -59,7 +81,7 @@ function AdminComment() {
                             if (Filter==="Approved") return comment.isApproved;
                             return !comment.isApproved
                         })).map(item => (
-                            <tr key={item.id} className={`border-y border-y-border relative`}>
+                            <tr key={item._id} className={`border-y border-y-border relative`}>
                                 <td className={`grid max-w-115 px-4 py-4`}>
                                     <span className={`mb-4`}><b>Blog: </b>{item.blog.title}</span>
                                     <span><b>Name: </b>{item.name}</span>
@@ -71,10 +93,10 @@ function AdminComment() {
                                 <td className={`flex gap-3 px-4 py-4`}>
                                     {
                                         Filter===`Not Approved` ?
-                                            <button className={`cursor-pointer`} type="button"><CheckCircle className={`stroke-success stroke-3`} /></button>
-                                            :<button type={`button`} className={`cursor-pointer flex items-center gap-2 bg-success/10 border-success border w-fit rounded-full px-5 py-1 text-sm`}><p className={`text-success font-medium`}>Approved</p></button>
+                                            <button className={`cursor-pointer`} onClick={() => approveComment(item._id)} type="button"><CheckCircle className={`stroke-success stroke-3`}/></button>
+                                            :<button type={`button`} className={`text-success after:content-["Approved"] font-medium flex items-center gap-2 transition-colors bg-success/10 hover:bg-success/25 border-success border w-fit rounded-full px-5 py-1 text-sm`}></button>
                                     }
-                                    <button className={`cursor-pointer`} type="button"><Trash2 className={`stroke-3`} /></button>
+                                    <button onClick={() => deleteComment(item._id)} className={`cursor-pointer`} type="button"><Trash2 className={`stroke-3`} /></button>
                                 </td>
                             </tr>
                         ))
