@@ -13,19 +13,62 @@ export const AppProvider = ({children}) => {
     const [token, setToken] = useState(null);
     const [blogs, setBlogs] = useState([]);
     const [inputs, setInputs] = useState("");
+    const [Comments, setComments] = useState([]);
+    const [DashboardData, setDashboardData] = useState({
+        blogs: 0,
+        comments: 0,
+        draftBlogs: 0,
+        recentsBlogs: []
+    })
 
     const fetchBlog = async () => {
         try {
             const {data} = await axios.get('/api/blog/all')
-            data.success ? setBlogs(data.blogs) : toast.error(data.message)
-        } catch (err) { toast.error(err.message) }
+            return data.success ? setBlogs(data.blogs) : toast.error(data.message)
+        } catch (err) { return toast.error(err.message) }
     }
+    const fetchAdminBlog = async () => {
+        try {
+            const {data} = await axios.get(`/api/admin/blogs`);
+            if (data.success) return setBlogs(data.blogs)
+            else {
+                toast.error(data.message)
+                return setBlogs([])
+            }
+        } catch (err) {return toast.error(err.message)}
+    }
+    const fetchAdminDashboard = async () => {
+        try {
+            const {data} = await axios.get(`/api/admin/dashboard`)
+            if (data.success) return setDashboardData(data.dashboardData)
+            else {
+                toast.error(data.message)
+                return setDashboardData({
+                    blogs: 0,
+                    comments: 0,
+                    draftBlogs: 0,
+                    recentsBlogs: []
+                })
+            }
+        } catch (e) {return toast.error(e.message)}
+    }
+    const fetchComments = async () => {
+        try {
+            const {data} = await axios.get(`/api/admin/comments`)
+            if (data.success) return data.comments
+            else return data
+        } catch (e) {return e}
+    }
+
     const value = {
         axios,
         navigate,
         token, setToken,
         blogs, setBlogs,
-        inputs, setInputs
+        inputs, setInputs,
+        DashboardData, setDashboardData,
+        Comments, setComments,
+        fetchBlog, fetchAdminBlog, fetchAdminDashboard, fetchComments
     }
 
     useEffect(() => {
@@ -35,7 +78,6 @@ export const AppProvider = ({children}) => {
             setToken(storedToken);
             axios.defaults.headers.common["Authorization"] = `${storedToken}`
         }
-
     }, []);
 
     return (

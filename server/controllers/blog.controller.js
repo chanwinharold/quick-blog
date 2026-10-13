@@ -46,8 +46,8 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getOneBlog = async (req, res) => {
     try {
-        const { blogId } = req.params
-        const blog = await Blog.findById(blogId);
+        const { id } = req.params
+        const blog = await Blog.findById(id);
 
         if (!blog) {
             return res.json({success: false, message: "Blog not found"});
@@ -60,7 +60,7 @@ exports.getOneBlog = async (req, res) => {
 
 exports.deleteBlog  = async (req, res) => {
     try {
-        const { id } = req.body
+        const { id } = req.params
         await Blog.findByIdAndDelete(id);
 
         // Delete all comments associate to this deleted blog

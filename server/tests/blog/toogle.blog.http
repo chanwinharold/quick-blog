@@ -6,7 +6,7 @@ Authorization: {{auth_token}}
 Content-Type: application/json
 
 {
-    "id": "6a9f4ee3911046f389d84937"
+    "id": "6aabb38591c85176939f40a5"
 }
 
 ###
